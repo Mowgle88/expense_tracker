@@ -35,6 +35,7 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.symmetric(
@@ -56,6 +57,27 @@ class Chart extends StatelessWidget {
       ),
       child: Column(
         children: [
+          Row(
+            children: buckets
+                .map(
+                  (bucket) => Expanded(
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: isDarkMode
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context).colorScheme.primary,
+                        fontSize: 12,
+                      ),
+                      bucket.totalExpenses > 0
+                          ? '\$${bucket.totalExpenses}'
+                          : '',
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+          const SizedBox(height: 12),
           Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
